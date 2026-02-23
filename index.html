@@ -3,943 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cannabis Clinic Statistics Dashboard</title>
+    <title>Docs of Cann - Stats Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
-        .dashboard-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 20px;
-            flex: 1 1 45%;
-            min-width: 300px;
-            margin-bottom: 20px;
-        }
-        .card.full-width {
-            flex: 1 1 100%;
-        }
-        h2 {
-            color: #16a085;
-            border-bottom: 2px solid #16a085;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f8f9fa;
-            color: #2c3e50;
-            font-weight: 600;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .dashboard-container { max-width: 1400px; margin: 40px auto; }
+        .table-responsive { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .nav-tabs .nav-link.active { font-weight: bold; color: #0d6efd; }
     </style>
 </head>
 <body>
 
-    <h1>Cannabis Clinic Statistics Dashboard</h1>
-
-    <div class="dashboard-container">
+<div class="dashboard-container">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">📊 Docs of Cann - Interactive Stats</h1>
+        <p class="lead text-muted">Upload your CSV files to view, sort, and search your data.</p>
         
-        <div class="card">
-            <h2>Overall Patient Status (New vs Returning)</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>Patient Status</th>
-      <th>Number of Visits</th>
-      <th>Percentage of Total Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>returning</td>
-      <td>2167</td>
-      <td>50.95%</td>
-    </tr>
-    <tr>
-      <td>new</td>
-      <td>2086</td>
-      <td>49.05%</td>
-    </tr>
-  </tbody>
-</table>
+        <div class="d-inline-block text-start" style="max-width: 500px; width: 100%;">
+            <input type="file" id="csvFileInput" class="form-control form-control-lg border-primary shadow-sm" accept=".csv" multiple>
         </div>
-
-        <div class="card">
-            <h2>Visits by State</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>State</th>
-      <th>Number of Visits</th>
-      <th>Percentage of Total Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>OK</td>
-      <td>3220</td>
-      <td>75.71%</td>
-    </tr>
-    <tr>
-      <td>MD</td>
-      <td>141</td>
-      <td>3.32%</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>124</td>
-      <td>2.92%</td>
-    </tr>
-    <tr>
-      <td>TX</td>
-      <td>93</td>
-      <td>2.19%</td>
-    </tr>
-    <tr>
-      <td>OH</td>
-      <td>91</td>
-      <td>2.14%</td>
-    </tr>
-    <tr>
-      <td>VA</td>
-      <td>87</td>
-      <td>2.05%</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>87</td>
-      <td>2.05%</td>
-    </tr>
-    <tr>
-      <td>NY</td>
-      <td>79</td>
-      <td>1.86%</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>74</td>
-      <td>1.74%</td>
-    </tr>
-    <tr>
-      <td>NJ</td>
-      <td>66</td>
-      <td>1.55%</td>
-    </tr>
-    <tr>
-      <td>LA</td>
-      <td>64</td>
-      <td>1.5%</td>
-    </tr>
-    <tr>
-      <td>IA</td>
-      <td>26</td>
-      <td>0.61%</td>
-    </tr>
-    <tr>
-      <td>MN</td>
-      <td>26</td>
-      <td>0.61%</td>
-    </tr>
-    <tr>
-      <td>CA</td>
-      <td>24</td>
-      <td>0.56%</td>
-    </tr>
-    <tr>
-      <td>MO</td>
-      <td>14</td>
-      <td>0.33%</td>
-    </tr>
-    <tr>
-      <td>AR</td>
-      <td>11</td>
-      <td>0.26%</td>
-    </tr>
-    <tr>
-      <td>GA</td>
-      <td>10</td>
-      <td>0.24%</td>
-    </tr>
-    <tr>
-      <td>MI</td>
-      <td>6</td>
-      <td>0.14%</td>
-    </tr>
-    <tr>
-      <td>CT</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>ME</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>WV</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>UT</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>NH</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>DE</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-
-        <div class="card">
-            <h2>Overall Visit Types</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>Visit Type</th>
-      <th>Number of Visits</th>
-      <th>Percentage of Total Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Renewal Patient - $149 (Oklahoma)</td>
-      <td>2454</td>
-      <td>57.7%</td>
-    </tr>
-    <tr>
-      <td>Medical Card Certification</td>
-      <td>944</td>
-      <td>22.2%</td>
-    </tr>
-    <tr>
-      <td>New Patient - $199 (Oklahoma)</td>
-      <td>766</td>
-      <td>18.01%</td>
-    </tr>
-    <tr>
-      <td>Massachusetts Medical Card</td>
-      <td>63</td>
-      <td>1.48%</td>
-    </tr>
-    <tr>
-      <td>Ohio Medical Card</td>
-      <td>4</td>
-      <td>0.09%</td>
-    </tr>
-    <tr>
-      <td>Virginia Medical Card</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Louisiana Medical Card</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Texas Evaluation- with Dr. Rice-McKenzie (RENEWAL)</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Emotional Support Animal Letter - $149</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Pennsylvania Medical Card</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Minnesota Medical Card</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>New Patient (Utah) - $199 - In Person Appointment (DOCS)</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Illinois Medical Card</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Maryland Medical Card</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Arkansas Medical Card</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Synergy Semaglutide Weight Loss Program - $299/Month</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-
-        <div class="card">
-            <h2>Top Providers</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>Provider Name</th>
-      <th>Number of Visits</th>
-      <th>Percentage of Total Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Johnathan Miller, MD</td>
-      <td>2991</td>
-      <td>70.33%</td>
-    </tr>
-    <tr>
-      <td>Cheryl Bugailiskis</td>
-      <td>506</td>
-      <td>11.90%</td>
-    </tr>
-    <tr>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>396</td>
-      <td>9.31%</td>
-    </tr>
-    <tr>
-      <td>Dr. Gillian Jones</td>
-      <td>93</td>
-      <td>2.19%</td>
-    </tr>
-    <tr>
-      <td>Nancy Perroni</td>
-      <td>92</td>
-      <td>2.16%</td>
-    </tr>
-    <tr>
-      <td>Christian Kaufman</td>
-      <td>80</td>
-      <td>1.88%</td>
-    </tr>
-    <tr>
-      <td>Dr. Jacqueline Rice-McKenzie, M.D.</td>
-      <td>19</td>
-      <td>0.45%</td>
-    </tr>
-    <tr>
-      <td>Dr. Joel Durinka, M.D.</td>
-      <td>13</td>
-      <td>0.31%</td>
-    </tr>
-    <tr>
-      <td>Dr. Lewis Jassey, D.O.</td>
-      <td>11</td>
-      <td>0.26%</td>
-    </tr>
-    <tr>
-      <td>Tracy Beckman</td>
-      <td>9</td>
-      <td>0.21%</td>
-    </tr>
-    <tr>
-      <td>Dr. Kevin Kargman, D.O.</td>
-      <td>9</td>
-      <td>0.21%</td>
-    </tr>
-    <tr>
-      <td>Dr. An Chen</td>
-      <td>8</td>
-      <td>0.19%</td>
-    </tr>
-    <tr>
-      <td>Dr Benjamin Caplan</td>
-      <td>8</td>
-      <td>0.19%</td>
-    </tr>
-    <tr>
-      <td>Jennifer MacRae</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Amanda Malamud, PA-C</td>
-      <td>3</td>
-      <td>0.07%</td>
-    </tr>
-    <tr>
-      <td>Eva Connelly</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Barbara Scorziello</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Mayra Vences</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Crystal Belle, N.P.</td>
-      <td>2</td>
-      <td>0.05%</td>
-    </tr>
-    <tr>
-      <td>Fabian Vengoechea</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Dr Anshi Thapliyal</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Richard Nellis, P.A.</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-    <tr>
-      <td>Victoria Lal</td>
-      <td>1</td>
-      <td>0.02%</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-
-        <div class="card full-width">
-            <h2>Visit Types by Patient Status</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>Visit Type</th>
-      <th>Patient Status</th>
-      <th>Number of Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Renewal Patient - $149 (Oklahoma)</td>
-      <td>returning</td>
-      <td>1549</td>
-    </tr>
-    <tr>
-      <td>Renewal Patient - $149 (Oklahoma)</td>
-      <td>new</td>
-      <td>905</td>
-    </tr>
-    <tr>
-      <td>Medical Card Certification</td>
-      <td>returning</td>
-      <td>525</td>
-    </tr>
-    <tr>
-      <td>Medical Card Certification</td>
-      <td>new</td>
-      <td>419</td>
-    </tr>
-    <tr>
-      <td>New Patient - $199 (Oklahoma)</td>
-      <td>new</td>
-      <td>721</td>
-    </tr>
-    <tr>
-      <td>New Patient - $199 (Oklahoma)</td>
-      <td>returning</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <td>Massachusetts Medical Card</td>
-      <td>returning</td>
-      <td>33</td>
-    </tr>
-    <tr>
-      <td>Massachusetts Medical Card</td>
-      <td>new</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <td>Emotional Support Animal Letter - $149</td>
-      <td>returning</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>Louisiana Medical Card</td>
-      <td>new</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>Texas Evaluation- with Dr. Rice-McKenzie (RENEWAL)</td>
-      <td>returning</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>Minnesota Medical Card</td>
-      <td>returning</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>New Patient (Utah) - $199 - In Person Appointment (DOCS)</td>
-      <td>new</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Ohio Medical Card</td>
-      <td>new</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Ohio Medical Card</td>
-      <td>returning</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Pennsylvania Medical Card</td>
-      <td>returning</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Virginia Medical Card</td>
-      <td>new</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Arkansas Medical Card</td>
-      <td>new</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Illinois Medical Card</td>
-      <td>new</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Maryland Medical Card</td>
-      <td>returning</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Synergy Semaglutide Weight Loss Program - $299/Month</td>
-      <td>returning</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-
-        <div class="card full-width">
-            <h2>Providers by State</h2>
-            <table>
-  <thead>
-    <tr>
-      <th>State</th>
-      <th>Provider Name</th>
-      <th>Number of Visits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>AR</td>
-      <td>Johnathan Miller, MD</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>CA</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <td>CA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>CT</td>
-      <td>Barbara Scorziello</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>DE</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>GA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>GA</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>GA</td>
-      <td>Dr. Joel Durinka, M.D.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>IA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>25</td>
-    </tr>
-    <tr>
-      <td>IA</td>
-      <td>Crystal Belle, N.P.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>Johnathan Miller, MD</td>
-      <td>63</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>Dr. Gillian Jones</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>IL</td>
-      <td>Dr. Joel Durinka, M.D.</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>LA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>51</td>
-    </tr>
-    <tr>
-      <td>LA</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>LA</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>LA</td>
-      <td>Dr. Gillian Jones</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Nancy Perroni</td>
-      <td>92</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Tracy Beckman</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Dr Benjamin Caplan</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Dr. An Chen</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Dr. Kevin Kargman, D.O.</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Eva Connelly</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>MA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>MD</td>
-      <td>Johnathan Miller, MD</td>
-      <td>141</td>
-    </tr>
-    <tr>
-      <td>ME</td>
-      <td>Dr. Lewis Jassey, D.O.</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>MI</td>
-      <td>Johnathan Miller, MD</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>MN</td>
-      <td>Johnathan Miller, MD</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <td>MN</td>
-      <td>Dr. Joel Durinka, M.D.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>MN</td>
-      <td>Richard Nellis, P.A.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>MO</td>
-      <td>Johnathan Miller, MD</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>MO</td>
-      <td>Christian Kaufman</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>MO</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>NH</td>
-      <td>Christian Kaufman</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>NJ</td>
-      <td>Johnathan Miller, MD</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <td>NJ</td>
-      <td>Dr. Kevin Kargman, D.O.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>NJ</td>
-      <td>Victoria Lal</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>NY</td>
-      <td>Johnathan Miller, MD</td>
-      <td>58</td>
-    </tr>
-    <tr>
-      <td>NY</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>NY</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>NY</td>
-      <td>Amanda Malamud, PA-C</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>OH</td>
-      <td>Johnathan Miller, MD</td>
-      <td>79</td>
-    </tr>
-    <tr>
-      <td>OH</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>OH</td>
-      <td>Jennifer MacRae</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Johnathan Miller, MD</td>
-      <td>2294</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>392</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>361</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Dr. Gillian Jones</td>
-      <td>81</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Christian Kaufman</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Dr. Lewis Jassey, D.O.</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>OK</td>
-      <td>Dr. Kevin Kargman, D.O.</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>Dr Anshi Thapliyal</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>PA</td>
-      <td>Fabian Vengoechea</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>TX</td>
-      <td>Cheryl Bugailiskis</td>
-      <td>62</td>
-    </tr>
-    <tr>
-      <td>TX</td>
-      <td>Dr. Jacqueline Rice-McKenzie, M.D.</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <td>TX</td>
-      <td>Dr. Joel Durinka, M.D.</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>TX</td>
-      <td>Dr. Gillian Jones</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>UT</td>
-      <td>Mayra Vences</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>VA</td>
-      <td>Johnathan Miller, MD</td>
-      <td>73</td>
-    </tr>
-    <tr>
-      <td>VA</td>
-      <td>Dr. Benjamin Krasne, M.D.</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>VA</td>
-      <td>Dr. Gillian Jones</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>VA</td>
-      <td>Crystal Belle, N.P.</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>WV</td>
-      <td>Johnathan Miller, MD</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-
     </div>
 
-    <div class="footer">
-        Generated automatically from Clinic Stats Data
-    </div>
+    <ul class="nav nav-tabs" id="csvTabs" role="tablist"></ul>
+    
+    <div class="tab-content mt-4" id="csvTabContent"></div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+    document.getElementById('csvFileInput').addEventListener('change', function(event) {
+        const files = event.target.files;
+        const tabsContainer = document.getElementById('csvTabs');
+        const contentContainer = document.getElementById('csvTabContent');
+        
+        // Clear previous uploads
+        tabsContainer.innerHTML = '';
+        contentContainer.innerHTML = '';
+
+        if (files.length === 0) return;
+
+        Array.from(files).forEach((file, index) => {
+            // Clean up the file name to use as a tab title
+            let title = file.name.replace('Docs of Cann Stats - ', '').replace('.csv', '');
+            let tabId = 'tab-' + index;
+
+            // 1. Create the Tab
+            const tabItem = document.createElement('li');
+            tabItem.className = 'nav-item';
+            tabItem.innerHTML = `
+                <button class="nav-link ${index === 0 ? 'active' : ''}" id="${tabId}-tab" data-bs-toggle="tab" 
+                data-bs-target="#${tabId}-pane" type="button" role="tab">${title}</button>
+            `;
+            tabsContainer.appendChild(tabItem);
+
+            // 2. Create the Content Pane
+            const contentPane = document.createElement('div');
+            contentPane.className = `tab-pane fade ${index === 0 ? 'show active' : ''}`;
+            contentPane.id = `${tabId}-pane`;
+            contentPane.setAttribute('role', 'tabpanel');
+            
+            const tableWrapper = document.createElement('div');
+            tableWrapper.className = 'table-responsive mt-3';
+            
+            const table = document.createElement('table');
+            table.className = 'table table-striped table-hover align-middle w-100';
+            table.id = `table-${index}`;
+            
+            tableWrapper.appendChild(table);
+            contentPane.appendChild(tableWrapper);
+            contentContainer.appendChild(contentPane);
+
+            // 3. Parse CSV and build the table
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const data = results.data;
+                    if (data.length === 0) return;
+
+                    // Extract headers dynamically
+                    const headers = Object.keys(data[0]);
+                    
+                    // Format data for DataTables
+                    const columns = headers.map(header => ({ title: header, data: header }));
+                    
+                    // Initialize DataTable
+                    $(`#table-${index}`).DataTable({
+                        data: data,
+                        columns: columns,
+                        pageLength: 25,
+                        order: [], // Keeps the original order initially
+                        language: {
+                            search: "Filter records:"
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
