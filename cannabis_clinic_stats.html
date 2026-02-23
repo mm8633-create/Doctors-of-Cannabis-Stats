@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis Clinic Statistics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cannabis Clinic Statistics Dashboard</h1>
+    </header>
+    <main>
+        <section id="statistics">
+            <h2>Statistics Overview</h2>
+            <table>
+                <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Total Clinics</td>
+                    <td id="total-clinics">50</td>
+                </tr>
+                <tr>
+                    <td>Patients Served</td>
+                    <td id="patients-served">10,000</td>
+                </tr>
+                <tr>
+                    <td>Average Patient Rating</td>
+                    <td id="avg-rating">4.7</td>
+                </tr>
+            </table>
+        </section>
+        <section id="charts">
+            <h2>Charts</h2>
+            <canvas id="patientsChart"></canvas>
+            <canvas id="ratingsChart"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Cannabis Clinic Statistics. All rights reserved.</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
